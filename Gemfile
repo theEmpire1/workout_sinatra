@@ -11,6 +11,7 @@ gem 'require_all'
 group :development, :test do
   gem 'rspec'
   gem 'rubocop'
+  gem 'database_cleaner'
   gem 'mocha'
   gem 'pry'
   gem 'rack-test'
