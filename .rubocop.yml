@@ -1,0 +1,27 @@
+Metrics/LineLength:
+  Max: 120
+
+Style/MultilineOperationIndentation:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/RaiseArgs:
+  Enabled: false
+
+Style/PredicateName:
+  NamePrefixBlacklist:
+    - is_
+    # - has_
+    - have_
+
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'vendor/**/*'
+    # - 'spec/spec_helper.rb'
+
+Style/SingleLineBlockParams:
+  Enabled: false
+
