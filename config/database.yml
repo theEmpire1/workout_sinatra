@@ -1,0 +1,24 @@
+default: &default
+  adapter: mysql2
+  host: localhost
+  username: the_empire
+  password: thriller1
+
+# RDS: &RDS
+#   adapter: mysql2
+#   host: <%= ENV["SALE_HISTORIAN_DB_HOST"] %>
+#   database: <%= ENV["SALE_HISTORIAN_DB_NAME"] %>
+#   username: <%= ENV["SALE_HISTORIAN_DB_USERNAME"] %>
+#   password: <%= ENV["SALE_HISTORIAN_DB_PASSWORD"] %>
+#   pool: 25
+
+development:
+  <<: *default
+  database: workout
+
+test:
+  <<: *default
+  database: workout_test
+
+production:
+  <<: *RDS
