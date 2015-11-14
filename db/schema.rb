@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151114021836) do
+ActiveRecord::Schema.define(version: 20151114175329) do
 
-  create_table "workouts", force: :cascade do |t|
+  create_table "exercises", force: :cascade do |t|
     t.string "name",        limit: 255
     t.string "description", limit: 255
   end
