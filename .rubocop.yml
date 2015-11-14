@@ -19,6 +19,7 @@ Style/PredicateName:
 AllCops:
   Exclude:
     - 'db/**/*'
+    - 'tmp/*'
     - 'vendor/**/*'
     # - 'spec/spec_helper.rb'
 
