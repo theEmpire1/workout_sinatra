@@ -14,11 +14,11 @@ default: &default
 
 development:
   <<: *default
-  database: workout
+  database: workout_development
 
 test:
   <<: *default
   database: workout_test
 
-production:
-  <<: *RDS
+# production:
+#   <<: *RDS

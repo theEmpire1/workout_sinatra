@@ -1,5 +1,12 @@
 require 'sinatra'
+require 'sinatra/activerecord'
 
-get '/workouts' do
-  'Hello World!'
+class WorkoutApp < Sinatra::Base
+  register Sinatra::ActiveRecordExtension
+
+  set :database_file, '../config/database.yml'
+
+  get '/workouts' do
+    'Hello World!'
+  end
 end
