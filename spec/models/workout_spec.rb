@@ -12,4 +12,11 @@ describe Workout do
     expect(workout.name).to eq('Shoulder Press')
     expect(workout.description).to eq('Push the weight UP!')
   end
+
+  it 'creates a workout' do
+    Workout.create(name: 'Bench Press', description: 'Again, push the weight UP!')
+    workout = Workout.find_by(name: 'Bench Press')
+    expect(workout.name).to eq('Bench Press')
+    expect(workout.id).not_to be_nil
+  end
 end
