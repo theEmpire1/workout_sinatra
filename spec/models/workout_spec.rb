@@ -10,6 +10,6 @@ describe Workout do
   it 'returns the associated exercises' do
     workout = FactoryGirl.create(:workout_with_exercises)
     associated_exercises = workout.exercises
-    expect(associated_exercises.count).to eq(1)
+    expect(associated_exercises.count).to eq(3)
   end
 end
