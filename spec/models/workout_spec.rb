@@ -6,4 +6,10 @@ describe Workout do
       Workout.new(foo: 'bar')
     end.to raise_error(NoMethodError)
   end
+
+  it 'returns the associated exercises' do
+    workout = FactoryGirl.create(:workout_with_exercises)
+    associated_exercises = workout.exercises
+    expect(associated_exercises.count).to eq(1)
+  end
 end
