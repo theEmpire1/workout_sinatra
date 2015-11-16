@@ -7,7 +7,9 @@ gem 'rake'
 gem 'thin'
 gem 'shotgun'
 gem 'jbuilder'
+gem 'tilt-jbuilder'
 gem 'require_all'
+gem 'json'
 
 group :development, :test do
   gem 'rspec'
