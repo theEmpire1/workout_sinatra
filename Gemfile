@@ -9,11 +9,11 @@ gem 'shotgun'
 gem 'jbuilder'
 gem 'tilt-jbuilder'
 gem 'require_all'
+gem 'factory_girl'
 gem 'json'
 
 group :development, :test do
   gem 'rspec'
-  gem 'factory_girl'
   gem 'rubocop'
   gem 'database_cleaner'
   gem 'mocha'

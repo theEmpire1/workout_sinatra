@@ -11,11 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151115022608) do
+ActiveRecord::Schema.define(version: 20151117014519) do
 
   create_table "exercises", force: :cascade do |t|
     t.string "name",        limit: 255
     t.string "description", limit: 255
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name",  limit: 255
+    t.string "email", limit: 255
   end
 
   create_table "workout_exercises", force: :cascade do |t|
