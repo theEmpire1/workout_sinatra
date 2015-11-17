@@ -2,7 +2,7 @@ require_relative '../spec_helper'
 
 describe User do
   it 'creates a User given valid attributes' do
-    joe = FactoryGirl.create(:user)
+    joe = FactoryGirl.build(:user)
     expect(joe).to be_valid
   end
 
@@ -26,5 +26,44 @@ describe User do
     long_email = 'a' * 251 + '@email.com'
     long_email_joe = FactoryGirl.build(:user, email: long_email)
     expect(long_email_joe).not_to be_valid
+  end
+
+  it 'accepts valid email addresses' do
+    valid_addresses = %w(
+      joe@email.com
+      JOE@email.com
+      A_JOE_MAN@email.address.com
+      joe+shmoe@bar.gov)
+    users = []
+    valid_addresses.each do |addr|
+      users << FactoryGirl.build(:user, email: addr)
+    end
+
+    users.each do |u|
+      expect(u).to be_valid
+    end
+  end
+
+  it 'does not accept invalid email addresses' do
+    invalid_addresses = %w(
+      user@example,com
+      user_at_foo.org
+      user.name@example.
+      foo@bar_baz.com
+      foo@bar+baz.com)
+    invalid_users = []
+    invalid_addresses.each do |addr|
+      invalid_users << FactoryGirl.build(:user, email: addr)
+    end
+
+    invalid_users.each do |u|
+      expect(u).not_to be_valid
+    end
+  end
+
+  it 'requires email addresses to be unique' do
+    FactoryGirl.create(:user, email: 'original@email.com')
+    duplicate = FactoryGirl.build(:user, email: 'original@email.com'.upcase)
+    expect(duplicate).not_to be_valid
   end
 end
