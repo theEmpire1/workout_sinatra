@@ -66,4 +66,14 @@ describe User do
     duplicate = FactoryGirl.build(:user, email: 'original@email.com'.upcase)
     expect(duplicate).not_to be_valid
   end
+
+  it 'requires that the password not be blank' do
+    no_pass_joe = FactoryGirl.build(:user, password_confirmation: '  ')
+    expect(no_pass_joe).not_to be_valid
+  end
+
+  it 'requires that the password be at least 6 characters' do
+    short_pass_joe = FactoryGirl.build(:user, password_confirmation: 'abc')
+    expect(short_pass_joe).not_to be_valid
+  end
 end
