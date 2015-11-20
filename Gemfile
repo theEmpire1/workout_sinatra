@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
+gem 'warden'
 gem 'bcrypt'
 gem 'mysql2'
 gem 'sinatra-activerecord'
@@ -15,6 +16,7 @@ gem 'json'
 
 group :development, :test do
   gem 'rspec'
+  gem 'racksh'
   gem 'rubocop'
   gem 'database_cleaner'
   gem 'mocha'

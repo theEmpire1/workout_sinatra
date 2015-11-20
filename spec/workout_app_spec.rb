@@ -5,10 +5,20 @@ describe WorkoutApp do
     WorkoutApp
   end
 
+  let(:joe) { FactoryGirl.create(:user) }
+
+  before do
+    login_as(joe)
+  end
+
+  after :each do
+    logout
+  end
+
   describe '/workouts' do
     it 'returns hello world' do
       get '/workouts'
-      expect(last_response.body).to eq('Hello World!')
+      expect(last_response.status).to eq(200)
     end
   end
 
