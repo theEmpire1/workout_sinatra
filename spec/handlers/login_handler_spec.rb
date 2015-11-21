@@ -32,13 +32,13 @@ describe WorkoutApp do
 
     it 'authenticates a user' do
       FactoryGirl.create(:user)
-      post '/session', email: 'joe.shmoe@email.com', password: 'shmoebaby'
+      post '/login', email: 'joe.shmoe@email.com', password: 'shmoebaby'
       expect(last_response.status).to eq(200)
     end
 
     it 'responds with 401 unauthorized for incorrect password' do
       FactoryGirl.create(:user)
-      post '/session', email: 'joe.shmoe@email.com', password: 'incorrect'
+      post '/login', email: 'joe.shmoe@email.com', password: 'incorrect'
       expect(last_response).to be_unauthorized
     end
   end

@@ -1,6 +1,6 @@
 module Handlers
-  module SessionHandler
-    WorkoutApp.post '/session' do
+  module LoginHandler
+    WorkoutApp.post '/login' do
       warden_handler.authenticate!
       if warden_handler.authenticated?
         halt 200

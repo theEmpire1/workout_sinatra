@@ -1,4 +1,4 @@
-module SessionHelper
+module LoginHelper
   def warden_handler
     env['warden']
   end

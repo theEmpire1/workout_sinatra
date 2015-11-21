@@ -7,12 +7,12 @@ class WorkoutApp < Sinatra::Base
   disable :show_exceptions
 
   register Sinatra::ActiveRecordExtension
-  register Handlers::SessionHandler
+  register Handlers::LoginHandler
   register Handlers::UserHandler
   register Handlers::WorkoutHandler
   register WardenStrategies
 
-  helpers SessionHelper
+  helpers LoginHelper
   helpers HashHelpers
 
   use Rack::Session::Cookie
