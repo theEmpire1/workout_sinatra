@@ -5,6 +5,7 @@ require 'sinatra/base'
 
 class WorkoutApp < Sinatra::Base
   helpers SessionHelper
+  helpers HashHelpers
   use Rack::Session::Cookie
   register Sinatra::ActiveRecordExtension
   use Warden::Manager do |manager|
@@ -15,21 +16,21 @@ class WorkoutApp < Sinatra::Base
     manager.serialize_from_session { |id| User.find(id) }
   end
 
-  Warden::Manager.before_failure do |env, opts|
+  Warden::Manager.before_failure do |env, _opts|
     env['REQUEST_METHOD'] = 'POST'
   end
 
   Warden::Strategies.add(:password) do
     def valid?
-      params["email"] || params["password"]
+      params['email'] || params['password']
     end
 
     def authenticate!
-      user = User.find_by(email: params["email"])
-      if user && user.authenticate(params["password"])
+      user = User.find_by(email: params['email'])
+      if user && user.authenticate(params['password'])
         success!(user)
       else
-        fail!("Could not log in")
+        fail!('Could not log in')
       end
     end
   end
@@ -53,6 +54,17 @@ class WorkoutApp < Sinatra::Base
 
   get '/' do
     'whoops'
+  end
+
+  post '/new_account' do
+    begin
+      user_params = required_params(params, :name, :email, :password, :password_confirmation)
+      new_user = User.new(user_params)
+      new_user.save!
+    rescue ArgumentError, ActiveRecord::RecordInvalid => e
+      status 400
+      body "#{e}"
+    end
   end
 
   get '/workouts' do

@@ -76,4 +76,26 @@ describe User do
     short_pass_joe = FactoryGirl.build(:user, password_confirmation: 'abc')
     expect(short_pass_joe).not_to be_valid
   end
+
+  describe 'creating a user' do
+    it 'creates a new user given valid params' do
+      user_args = FactoryGirl.attributes_for(:user)
+      expect do
+        User.new(user_args).save!
+      end.not_to raise_error
+    end
+
+    it 'does not create user given invalid params' do
+      invalid_user_params = {
+        name: 'joe',
+        email: 'email@email.com',
+        password: 'password',
+        password_confirmation: 'notpassword'
+      }
+      user_args = FactoryGirl.attributes_for(:user, invalid_user_params)
+      expect do
+        User.new(user_args).save!
+      end.to raise_error(ActiveRecord::RecordInvalid)
+    end
+  end
 end
