@@ -73,6 +73,7 @@ describe WorkoutApp do
       user_params = FactoryGirl.attributes_for(:user, password_confirmation: 'bad')
       post '/new_account', user_params
       expect(last_response.status).to eq(400)
+      expect(last_response.body).to include("Password confirmation doesn't match Password")
     end
   end
 end
