@@ -10,5 +10,19 @@ module Handlers
         body "#{e}"
       end
     end
+
+    WorkoutApp.get '/workouts_for_user' do
+      check_authentication
+      begin
+        required = required_params(params, :user_id)
+        user_id = required[:user_id]
+        user = User.find(user_id)
+        workouts = user.workouts
+      rescue ArgumentError, ActiveRecord::RecordNotFound => e
+        body "#{e}"
+        halt 400
+      end
+      jbuilder :workouts_for_user, locals: { workouts: workouts }
+    end
   end
 end

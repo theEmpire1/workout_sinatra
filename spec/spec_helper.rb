@@ -1,6 +1,7 @@
 Bundler.require :default, :test
 
 require_all 'app'
+require_relative 'helpers/test_helpers'
 
 ENV['RACK_ENV'] = 'test'
 

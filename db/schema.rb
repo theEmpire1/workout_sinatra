@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151118015357) do
+ActiveRecord::Schema.define(version: 20151121221254) do
 
   create_table "exercises", force: :cascade do |t|
     t.string "name",        limit: 255
@@ -42,5 +42,7 @@ ActiveRecord::Schema.define(version: 20151118015357) do
     t.integer "downvotes",   limit: 4
     t.integer "user_id",     limit: 4
   end
+
+  add_index "workouts", ["user_id"], name: "index_workouts_on_user_id", using: :btree
 
 end

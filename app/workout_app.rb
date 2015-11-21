@@ -3,7 +3,6 @@ require 'sinatra/jbuilder'
 require 'sinatra/base'
 
 class WorkoutApp < Sinatra::Base
-  set :database_file, '../config/database.yml'
   disable :show_exceptions
 
   register Sinatra::ActiveRecordExtension
@@ -23,6 +22,7 @@ class WorkoutApp < Sinatra::Base
     manager.serialize_into_session { |user| user.id }
     manager.serialize_from_session { |id| User.find(id) }
   end
+  set :database_file, '../config/database.yml'
 
   Warden::Manager.before_failure do |env, _opts|
     env['REQUEST_METHOD'] = 'POST'
