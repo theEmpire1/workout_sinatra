@@ -20,7 +20,7 @@ class WorkoutApp < Sinatra::Base
     manager.default_strategies :password
     manager.intercept_401 = false
     manager.failure_app = WorkoutApp
-    manager.serialize_into_session { |user| user.id }
+    manager.serialize_into_session(&:id)
     manager.serialize_from_session { |id| User.find(id) }
   end
   set :database_file, '../config/database.yml'

@@ -4,7 +4,7 @@ require_all 'app'
 require_relative 'helpers/test_helpers'
 
 ENV['RACK_ENV'] = 'test'
-ActiveRecord::Base.logger = nil if ENV['RACK_ENV'] = 'test'
+ActiveRecord::Base.logger = nil if ENV['RACK_ENV'] == 'test'
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
