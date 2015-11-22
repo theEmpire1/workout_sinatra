@@ -5,25 +5,10 @@ describe WorkoutApp do
     WorkoutApp
   end
 
-  let(:joe) { FactoryGirl.build(:user) }
-
-  before do
-    login_as(joe)
-  end
-
-  after :each do
-    logout
-  end
-
-  describe '/workouts' do
-    it 'returns hello world' do
-      get '/workouts'
-      expect(last_response.status).to eq(200)
-    end
-  end
-
   describe '/exercises_for_workout' do
     it 'returns all exercises for a given workout' do
+      user = FactoryGirl.create(:user)
+      login_as user
       workout = FactoryGirl.create(:workout_with_exercises)
       exercise_ids = workout.exercises.each_with_object([]) do |e, arr|
         arr << e.id
@@ -51,6 +36,47 @@ describe WorkoutApp do
 
       get '/exercises_for_workout', workout_id: workout.id.to_int
       expect(JSON.parse(last_response.body)).to eq(JSON.parse(expected_exercise_response.to_json))
+    end
+  end
+
+  describe '/create_workout' do
+    it 'creates a workout when given correct parameters' do
+      user = FactoryGirl.create(:user)
+      login_as user
+      workout_params = {
+        name: 'Swimming',
+        description: 'This is my version of cardio',
+        user_id: user.id
+      }
+      expect do
+        post '/create_workout', workout_params
+      end.to change{user.workouts.count}.by(1)
+      expect(last_response.status).to eq(200)
+    end
+
+    it 'requires a user to be logged in' do
+      user = FactoryGirl.create(:user)
+      workout_params = {
+        name: 'Swimming',
+        description: 'This is my version of cardio',
+        user_id: user.id
+      }
+      post '/create_workout', workout_params
+      expect(last_response.status).to eq(401)
+    end
+
+    it 'does not allow a logged in user to create a workout for anyone but themselves' do
+      user1 = FactoryGirl.create(:user)
+      user2 = FactoryGirl.create(:another_user)
+      login_as user1
+      workout_params = {
+        name: 'Swimming',
+        description: 'This is my version of cardio',
+        user_id: user2.id
+      }
+      post '/create_workout', workout_params
+      expect(last_response.status).to eq(401)
+      expect(last_response.body).to include('Cannot create workout for other users')
     end
   end
 end

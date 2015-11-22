@@ -14,5 +14,12 @@ FactoryGirl.define do
         ]
       end
     end
+
+    factory :another_user do
+      name 'Bob'
+      email 'bob@email.com'
+      password 'bobisnumberone'
+      password_confirmation 'bobisnumberone'
+    end
   end
 end
