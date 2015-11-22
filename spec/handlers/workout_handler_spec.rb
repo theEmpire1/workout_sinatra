@@ -50,7 +50,7 @@ describe WorkoutApp do
       }
       expect do
         post '/create_workout', workout_params
-      end.to change{user.workouts.count}.by(1)
+      end.to change { user.workouts.count }.by(1)
       expect(last_response.status).to eq(200)
     end
 

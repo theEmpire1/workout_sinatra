@@ -21,7 +21,7 @@ describe Exercise do
   end
 
   it 'requires a name' do
-    no_name = Exercise.new()
+    no_name = Exercise.new
     expect do
       no_name.save!
     end.to raise_error(ActiveRecord::RecordInvalid)
