@@ -19,4 +19,11 @@ describe Exercise do
     expect(exercise.name).to eq('Bench Press')
     expect(exercise.id).not_to be_nil
   end
+
+  it 'requires a name' do
+    no_name = Exercise.new()
+    expect do
+      no_name.save!
+    end.to raise_error(ActiveRecord::RecordInvalid)
+  end
 end

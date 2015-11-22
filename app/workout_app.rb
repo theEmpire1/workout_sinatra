@@ -9,6 +9,7 @@ class WorkoutApp < Sinatra::Base
   register Handlers::LoginHandler
   register Handlers::UserHandler
   register Handlers::WorkoutHandler
+  register Handlers::ExerciseHandler
   register WardenStrategies
 
   helpers LoginHelper
