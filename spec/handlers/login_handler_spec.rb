@@ -12,7 +12,7 @@ describe WorkoutApp do
 
     it 'does not allow me to request workouts unless I am logged in' do
       workout = FactoryGirl.create(:workout_with_exercises)
-      get '/exercises_for_workout', workout_id: workout.id
+      get '/workout/exercises', workout_id: workout.id
       expect(last_response).to be_unauthorized
     end
 
@@ -20,13 +20,13 @@ describe WorkoutApp do
       user = FactoryGirl.create(:user)
       login_as(user)
       workout = FactoryGirl.create(:workout_with_exercises)
-      get '/exercises_for_workout', workout_id: workout.id
+      get '/workout/exercises', workout_id: workout.id
       expect(last_response.status).to eq(200)
     end
 
     it 'does not allow me to request workouts unless logged in' do
       workout = FactoryGirl.create(:workout_with_exercises)
-      get '/exercises_for_workout', workout_id: workout.id
+      get '/workout/exercises', workout_id: workout.id
       expect(last_response.status).to eq(401)
     end
 
