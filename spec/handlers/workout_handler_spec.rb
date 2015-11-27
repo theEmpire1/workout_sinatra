@@ -5,7 +5,7 @@ describe WorkoutApp do
     WorkoutApp
   end
 
-  describe '/exercises_for_workout' do
+  describe '/workout/exercises' do
     it 'returns all exercises for a given workout' do
       user = FactoryGirl.create(:user)
       login_as user
@@ -34,13 +34,13 @@ describe WorkoutApp do
         ]
       }
 
-      get '/exercises_for_workout', workout_id: workout.id.to_int
+      get 'workout/exercises', workout_id: workout.id.to_int
       expect(last_response.errors).to eq('')
       expect(JSON.parse(last_response.body)).to eq(JSON.parse(expected_exercise_response.to_json))
     end
   end
 
-  describe '/create_workout' do
+  describe '/workout/create' do
     it 'creates a workout when given correct parameters' do
       user = FactoryGirl.create(:user)
       login_as user
@@ -50,7 +50,7 @@ describe WorkoutApp do
         user_id: user.id
       }
       expect do
-        post '/create_workout', workout_params
+        post '/workout/create', workout_params
       end.to change { user.workouts.count }.by(1)
       expect(last_response.status).to eq(200)
     end
@@ -62,7 +62,7 @@ describe WorkoutApp do
         description: 'This is my version of cardio',
         user_id: user.id
       }
-      post '/create_workout', workout_params
+      post '/workout/create', workout_params
       expect(last_response.status).to eq(401)
     end
 
@@ -75,7 +75,7 @@ describe WorkoutApp do
         description: 'This is my version of cardio',
         user_id: user2.id
       }
-      post '/create_workout', workout_params
+      post '/workout/create', workout_params
       expect(last_response.status).to eq(401)
       expect(last_response.body).to include('Cannot create workout for other users')
     end

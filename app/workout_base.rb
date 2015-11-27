@@ -1,10 +1,12 @@
 require 'sinatra/base'
+require 'sinatra/namespace'
 require 'warden'
 require_relative 'helpers/login_helpers'
 require_relative 'helpers/hash_helpers'
 
 class WorkoutBase < Sinatra::Base
   register WardenStrategies
+  register Sinatra::Namespace
   helpers LoginHelpers, HashHelpers
 
   use Rack::Session::Cookie
