@@ -35,6 +35,7 @@ describe WorkoutApp do
       }
 
       get '/exercises_for_workout', workout_id: workout.id.to_int
+      expect(last_response.errors).to eq('')
       expect(JSON.parse(last_response.body)).to eq(JSON.parse(expected_exercise_response.to_json))
     end
   end
